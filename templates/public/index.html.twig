@@ -1,3 +1,14 @@
 {% extends 'my_template.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}Skeleton2 - Accueil {% endblock %}
+{% block menu %}<li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>{% endblock %}
+{% block stitre %}{{ parent() }} - Accueil{% endblock %}
+{% block sstitre %}Liste de nos articles{% endblock %}
