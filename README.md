@@ -16,3 +16,9 @@ with the real DATABASE_URL
     php bin/console doctrine:mapping:import App\\Entity annotation --path=src/Entity
 ### step 6 : generate getters and setters
     php bin/console make:entity App\Entity --regenerate
+### step 7 : create a controller
+    php bin/console make:controller PublicController
+### step 8 : change routing and name
+    annotation : @Route("/", name="accueil")
+
+
