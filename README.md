@@ -20,5 +20,9 @@ with the real DATABASE_URL
     php bin/console make:controller PublicController
 ### step 8 : change routing and name
     annotation : @Route("/", name="accueil")
+### step 9 : create templates
+with Bootstrap 4 CDN into my_template.html.twig
+### step 10 : take a basic templapte
+from https://startbootstrap.com/
 
 
