@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Rubriques;
+use App\Entity\Articles;
 
 class PublicController extends AbstractController
 {
@@ -12,8 +14,12 @@ class PublicController extends AbstractController
      */
     public function index()
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        $rubriques = $entityManager->getRepository(Rubriques::class)->findAll();
+        $articles = $entityManager->getRepository(Articles::class)->findAll();
         return $this->render('public/index.html.twig', [
-            'controller_name' => 'PublicController',
+            'rubriques' => $rubriques,
+            'articles' => $articles,
         ]);
     }
 }
