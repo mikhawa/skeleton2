@@ -1,14 +1,8 @@
 {% extends 'my_template.html.twig' %}
 
 {% block title %}Skeleton2 - Accueil {% endblock %}
-{% block menu %}<li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>{% endblock %}
+{% block menu %}
+    {% for item in rubriques %}<li class="nav-item"><a class="nav-link" href="idcateg/{{ item.getIdrubriques }}">{{ item.getThertitle }}</a></li>{% endfor %}
+            {% endblock %}
 {% block stitre %}{{ parent() }} - Accueil{% endblock %}
 {% block sstitre %}Liste de nos articles{% endblock %}
