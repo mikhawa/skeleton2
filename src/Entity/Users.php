@@ -52,5 +52,58 @@ class Users
      */
     private $rolesroles;
 
+    public function getIdusers(): ?int
+    {
+        return $this->idusers;
+    }
+
+    public function getThelogin(): ?string
+    {
+        return $this->thelogin;
+    }
+
+    public function setThelogin(string $thelogin): self
+    {
+        $this->thelogin = $thelogin;
+
+        return $this;
+    }
+
+    public function getThepwd(): ?string
+    {
+        return $this->thepwd;
+    }
+
+    public function setThepwd(string $thepwd): self
+    {
+        $this->thepwd = $thepwd;
+
+        return $this;
+    }
+
+    public function getThemail(): ?string
+    {
+        return $this->themail;
+    }
+
+    public function setThemail(string $themail): self
+    {
+        $this->themail = $themail;
+
+        return $this;
+    }
+
+    public function getRolesroles(): ?Roles
+    {
+        return $this->rolesroles;
+    }
+
+    public function setRolesroles(?Roles $rolesroles): self
+    {
+        $this->rolesroles = $rolesroles;
+
+        return $this;
+    }
+
 
 }

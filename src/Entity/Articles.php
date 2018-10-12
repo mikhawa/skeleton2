@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -80,6 +82,97 @@ class Articles
     public function __construct()
     {
         $this->rubriquesrubriques = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getIdarticles(): ?int
+    {
+        return $this->idarticles;
+    }
+
+    public function getThetitle(): ?string
+    {
+        return $this->thetitle;
+    }
+
+    public function setThetitle(string $thetitle): self
+    {
+        $this->thetitle = $thetitle;
+
+        return $this;
+    }
+
+    public function getTheslug(): ?string
+    {
+        return $this->theslug;
+    }
+
+    public function setTheslug(string $theslug): self
+    {
+        $this->theslug = $theslug;
+
+        return $this;
+    }
+
+    public function getThedescription(): ?string
+    {
+        return $this->thedescription;
+    }
+
+    public function setThedescription(string $thedescription): self
+    {
+        $this->thedescription = $thedescription;
+
+        return $this;
+    }
+
+    public function getThedate(): ?\DateTimeInterface
+    {
+        return $this->thedate;
+    }
+
+    public function setThedate(?\DateTimeInterface $thedate): self
+    {
+        $this->thedate = $thedate;
+
+        return $this;
+    }
+
+    public function getUsersusers(): ?Users
+    {
+        return $this->usersusers;
+    }
+
+    public function setUsersusers(?Users $usersusers): self
+    {
+        $this->usersusers = $usersusers;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rubriques[]
+     */
+    public function getRubriquesrubriques(): Collection
+    {
+        return $this->rubriquesrubriques;
+    }
+
+    public function addRubriquesrubrique(Rubriques $rubriquesrubrique): self
+    {
+        if (!$this->rubriquesrubriques->contains($rubriquesrubrique)) {
+            $this->rubriquesrubriques[] = $rubriquesrubrique;
+        }
+
+        return $this;
+    }
+
+    public function removeRubriquesrubrique(Rubriques $rubriquesrubrique): self
+    {
+        if ($this->rubriquesrubriques->contains($rubriquesrubrique)) {
+            $this->rubriquesrubriques->removeElement($rubriquesrubrique);
+        }
+
+        return $this;
     }
 
 }

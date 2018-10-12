@@ -35,5 +35,34 @@ class Roles
      */
     private $thevalue;
 
+    public function getIdroles(): ?int
+    {
+        return $this->idroles;
+    }
+
+    public function getThename(): ?string
+    {
+        return $this->thename;
+    }
+
+    public function setThename(string $thename): self
+    {
+        $this->thename = $thename;
+
+        return $this;
+    }
+
+    public function getThevalue(): ?string
+    {
+        return $this->thevalue;
+    }
+
+    public function setThevalue(string $thevalue): self
+    {
+        $this->thevalue = $thevalue;
+
+        return $this;
+    }
+
 
 }

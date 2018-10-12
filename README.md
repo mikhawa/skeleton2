@@ -14,3 +14,5 @@ create a mysql database with Workbench
 with the real DATABASE_URL
 ### step 5 : create mapping
     php bin/console doctrine:mapping:import App\\Entity annotation --path=src/Entity
+### step 6 : generate getters and setters
+    php bin/console make:entity App\Entity --regenerate
