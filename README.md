@@ -24,5 +24,15 @@ with the real DATABASE_URL
 with Bootstrap 4 CDN into my_template.html.twig
 ### step 10 : take a basic templapte
 from https://startbootstrap.com/
+### step 11 : recup menu
+- index in controller:
+    use App\Entity\Rubriques;
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $rubriques = $entityManager->getRepository(Rubriques::class)->findAll();
+        return $this->render('public/index.html.twig', [
+            'rubriques' => $rubriques,
+        ]);
+
 
 
