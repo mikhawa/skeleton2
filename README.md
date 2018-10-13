@@ -60,5 +60,6 @@ from https://startbootstrap.com/
 >    <p>{{ item.getThedescription|slice(0, 300) }} ... </p>
 >        <h4>Par {{item.getUsersusers.getThelogin}} <small>le {{ item.getThedate|date("d/m/Y à H:i")}}</small></h4><hr>
 >    {% endfor %} 
-### step 13 : make complete article 
-- 
+### step 13 : findAll with ORDER BY
+use this => findBy([],['thedate'=>"DESC"])
+###
