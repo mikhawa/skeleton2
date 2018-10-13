@@ -1,0 +1,15 @@
+{% extends 'my_template.html.twig' %}
+
+{% block title %}Skeleton2 - {{ articles.getThetitle }}{% endblock %}
+{% block menu %}
+    {% for item in rubriques %}<li class="nav-item"><a class="nav-link" href="idcateg/{{ item.getIdrubriques }}">{{ item.getThertitle }}</a></li>{% endfor %}
+            {% endblock %}
+{% block stitre %}{{ parent() }} - {{ articles.getThetitle }}{% endblock %}
+{% block sstitre %}Détail de l'article: {{ articles.getThetitle }}{% endblock %}
+{% block contenu %}
+        <h2>{{ articles.getThetitle }}</h2>
+        <h3>Sections : {% for menu in articles.getRubriquesrubriques %}
+{{menu.getThertitle}} | {% endfor %}</h3>
+    <p>{{ articles.getThedescription|nl2br }}</p>
+<h4>Par {{articles.getUsersusers.getThelogin}} <small>le {{ articles.getThedate|date("d/m/Y à H:i")}}</small></h4><hr>   
+{% endblock %}

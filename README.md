@@ -41,7 +41,7 @@ from https://startbootstrap.com/
 - index in controller:
 >    use App\Entity\Rubriques;
 >    use App\Entity\Articles;
-    
+>    
 >    public function index()
 >   {
 >        $entityManager = $this->getDoctrine()->getManager();
@@ -66,8 +66,11 @@ use this => findBy([],['thedate'=>"DESC"])
     composer require twig/extensions
 ### activate twig extensions
 - decomment 
-    Twig\Extensions\TextExtension: ~
+>        Twig\Extensions\TextExtension: ~
 in config/packages/twig_extensions.yaml
 - use 
-    item.getThedescription|truncate(300, true)
+>        item.getThedescription|truncate(300, true)
 in the template, the words are not cut
+### create the complete article system
+- create method in PublicController.php
+- create view article.html.twig 
