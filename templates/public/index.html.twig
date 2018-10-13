@@ -11,7 +11,7 @@
         <h2>{{ item.getThetitle }}</h2>
         <h3>Sections : {% for menu in item.getRubriquesrubriques %}
 {{menu.getThertitle}} | {% endfor %}</h3>
-<p>{{ item.getThedescription|slice(0, 300) }} ... </p>
+<p>{{ item.getThedescription|slice(0, 350) }} <a href='idarticle/{{ item.getIdarticles }}'>... Lire la suite</a></p>
 <h4>Par {{item.getUsersusers.getThelogin}} <small>le {{ item.getThedate|date("d/m/Y à H:i")}}</small></h4><hr>
     {% endfor %}    
 {% endblock %}
