@@ -62,4 +62,12 @@ from https://startbootstrap.com/
 >    {% endfor %} 
 ### step 13 : findAll with ORDER BY
 use this => findBy([],['thedate'=>"DESC"])
-###
+### strep 14 : Install twig extensions
+    composer require twig/extensions
+### activate twig extensions
+- decomment 
+    Twig\Extensions\TextExtension: ~
+in config/packages/twig_extensions.yaml
+- use 
+    item.getThedescription|truncate(300, true)
+in the template, the words are not cut
