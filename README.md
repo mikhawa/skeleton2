@@ -74,7 +74,7 @@ in the template, the words are not cut
 ### create the complete article system
 - create method in PublicController.php
 - create view article.html.twig 
-### changing hard link to article with id
+### change hard link to article with id
 > {{ path('detail_article', {'id':item.getIdarticles}) }}
 ### create detail_rubrique system
 - rubrique() method in controller
@@ -83,3 +83,10 @@ in the template, the words are not cut
 Debug:
 > $rubriqueActu = $entityManager->getRepository(Rubriques::class)->find($id);
 > $articles = $rubriqueActu->getArticlesarticles();
+### create message if not article
+> {% if articles is empty %}
+>        Pas encore d'articles dans cette section
+> {% endif %}
+### Export database skeleton2
+datas/second-export-datas.sql
+### !
