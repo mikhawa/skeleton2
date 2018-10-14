@@ -1,9 +1,9 @@
 {% extends 'my_template.html.twig' %}
 
-{% block title %}Articles index{% endblock %}
+{% block title %}Administration d'articles{% endblock %}
 
 {% block contenu %}
-    <h1>Articles index</h1>
+    <h1>Administration d'articles</h1>
 
     <table class="table">
         <thead>
@@ -31,11 +31,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">Pas de données trouvées</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('articles_new') }}">Create new</a>
+    <a href="{{ path('articles_new') }}">Créez un article</a>
 {% endblock %}
