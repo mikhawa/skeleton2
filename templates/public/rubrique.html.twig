@@ -7,6 +7,9 @@
 {% block stitre %}{{ parent() }} - Rubrique {{rubriqueactu.getThertitle}}{% endblock %}
 {% block sstitre %}Liste de nos articles dans {{rubriqueactu.getThertitle}}{% endblock %}
 {% block contenu %}
+    {% if articles is empty %}
+        <p>Pas encore d'articles dans cette section, <a href="{{path("accueil")}}">retournez à l'accueil</a></p>
+    {% endif %}
     {% for item in articles %}
         <h2>{{ item.getThetitle }}</h2>
         <h3>Sections : {% for menu in item.getRubriquesrubriques %}

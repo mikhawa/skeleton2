@@ -7,6 +7,9 @@
 {% block stitre %}{{ parent() }} - Accueil{% endblock %}
 {% block sstitre %}Liste de nos articles{% endblock %}
 {% block contenu %}
+    {% if articles is empty %}
+        <p>Pas encore d'articles sur le site</p>
+    {% endif %}
     {% for item in articles %}
         <h2>{{ item.getThetitle }}</h2>
         <h3>Sections : {% for menu in item.getRubriquesrubriques %}
