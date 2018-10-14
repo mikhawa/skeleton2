@@ -77,3 +77,9 @@ in the template, the words are not cut
 ### changing hard link to article with id
 > {{ path('detail_article', {'id':item.getIdarticles}) }}
 ### create detail_rubrique system
+- rubrique() method in controller
+- rubrique.html.twig template
+! I used for many to many : 
+Debug:
+> $rubriqueActu = $entityManager->getRepository(Rubriques::class)->find($id);
+> $articles = $rubriqueActu->getArticlesarticles();
