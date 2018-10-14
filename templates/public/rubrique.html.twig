@@ -2,7 +2,7 @@
 
 {% block title %}Skeleton2 - Rubrique {{rubriqueactu.getThertitle}} {% endblock %}
 {% block menu %}
-    {% for item in rubriques %}<li class="nav-item"><a class="nav-link" href="{{ path('detail_rubrique',{'id':item.getIdrubriques}) }}">{{ item.getThertitle }}</a></li>{% endfor %}
+    {% for item in rubriques %}<li class="nav-item"><a class="nav-link" href="{{ path('detail_rubrique',{'id':item.getIdrubriques}) }}">{{ item.getThertitle }}</a></li>{% endfor %}<li class="nav-item"><a class="nav-link" href="{{ path('articles_index')}}">Admin articles</a></li>
             {% endblock %}
 {% block stitre %}{{ parent() }} - Rubrique {{rubriqueactu.getThertitle}}{% endblock %}
 {% block sstitre %}Liste de nos articles dans {{rubriqueactu.getThertitle}}{% endblock %}

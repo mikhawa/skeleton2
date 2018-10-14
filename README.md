@@ -105,3 +105,11 @@ datas/second-export-datas.sql
 
 Start coding !
 and news of Syfony 3 and 4 : https://github.com/pierstoval/livingedge
+### generate CRUD
+for Articles with command:
+    php bin/console make:crud Articles
+### changing routing to admin
+    @Route("/admin/articles")
+in Controller/ArticlesController.php
+- create a temporary link to the crud in public template
+

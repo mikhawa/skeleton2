@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/articles")
+ * @Route("/admin/articles")
  */
 class ArticlesController extends AbstractController
 {
@@ -27,7 +27,7 @@ class ArticlesController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="articles_new", methods="GET|POST")
+     * @Route("/nouveau", name="articles_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {
@@ -58,7 +58,7 @@ class ArticlesController extends AbstractController
     }
 
     /**
-     * @Route("/{idarticles}/edit", name="articles_edit", methods="GET|POST")
+     * @Route("/{idarticles}/modifier", name="articles_edit", methods="GET|POST")
      */
     public function edit(Request $request, Articles $article): Response
     {
