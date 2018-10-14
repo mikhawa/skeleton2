@@ -90,18 +90,18 @@ Debug:
 ### Export database skeleton2
 datas/second-export-datas.sql
 ### Lu sur internet ;-)
-$ composer create symfony/website-skeleton monprojet
-# ...
-$ composer req admin api
-# ...
-$ php bin/console make:controller DefaultController
-$ php bin/console make:functional-test DefaultControllerTest
-$ php bin/console make:entity User
-$ php bin/console make:entity Post
-$ php bin/console make:command UpdateCommentsStatsCommand
-$ php bin/console make:voter BlogPostVoter
-$ php bin/console make:auth FormLoginAuthenticator
-$ php bin/console make:auth OAuthAuthenticator
-# ...
-# ...
-# Start coding !
+    composer create symfony/website-skeleton monprojet
+
+    composer req admin api
+
+    php bin/console make:controller DefaultController
+    php bin/console make:functional-test DefaultControllerTest
+    php bin/console make:entity User
+    php bin/console make:entity Post
+    php bin/console make:command UpdateCommentsStatsCommand
+    php bin/console make:voter BlogPostVoter
+    php bin/console make:auth FormLoginAuthenticator
+    php bin/console make:auth OAuthAuthenticator
+
+Start coding !
+and news of Syfony 3 and 4 : https://github.com/pierstoval/livingedge
