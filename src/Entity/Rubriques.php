@@ -90,4 +90,8 @@ class Rubriques
         return $this;
     }
 
+        public function __toString()
+        {
+            return (string) $this->getThertitle();
+        }
 }

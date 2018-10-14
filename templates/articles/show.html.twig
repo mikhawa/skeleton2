@@ -1,0 +1,38 @@
+{% extends 'my_template.html.twig' %}
+
+{% block title %}Voir l'Article{% endblock %}
+
+{% block contenu %}
+    <h1>Voir l'Article</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idarticles</th>
+                <td>{{ article.idarticles }}</td>
+            </tr>
+            <tr>
+                <th>Thetitle</th>
+                <td>{{ article.thetitle }}</td>
+            </tr>
+            <tr>
+                <th>Theslug</th>
+                <td>{{ article.theslug }}</td>
+            </tr>
+            <tr>
+                <th>Thedescription</th>
+                <td>{{ article.thedescription }}</td>
+            </tr>
+            <tr>
+                <th>Thedate</th>
+                <td>{{ article.thedate ? article.thedate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('articles_index') }}">Retour à l'admin des articles</a>
+
+    <a href="{{ path('articles_edit', {'idarticles': article.idarticles}) }}">modifier</a>
+
+    {{ include('articles/_delete_form.html.twig') }}
+{% endblock %}

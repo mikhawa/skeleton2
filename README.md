@@ -62,32 +62,32 @@ from https://startbootstrap.com/
 >    {% endfor %} 
 ### step 13 : findAll with ORDER BY
 use this => findBy([],['thedate'=>"DESC"])
-### strep 14 : Install twig extensions
+### step 14 : Install twig extensions
     composer require twig/extensions
-### activate twig extensions
+### step 15 :activate twig extensions
 - decomment 
 >        Twig\Extensions\TextExtension: ~
 in config/packages/twig_extensions.yaml
 - use 
 >        item.getThedescription|truncate(350, true)
 in the template, the words are not cut
-### create the complete article system
+### step 16 :create the complete article system
 - create method in PublicController.php
 - create view article.html.twig 
-### change hard link to article with id
+### step 17 :change hard link to article with id
 > {{ path('detail_article', {'id':item.getIdarticles}) }}
-### create detail_rubrique system
+### step 18 :create detail_rubrique system
 - rubrique() method in controller
 - rubrique.html.twig template
 ! I used for many to many : 
 Debug:
 > $rubriqueActu = $entityManager->getRepository(Rubriques::class)->find($id);
 > $articles = $rubriqueActu->getArticlesarticles();
-### create message if not article
+### step 19 :create message if not article
 > {% if articles is empty %}
 >        Pas encore d'articles dans cette section
 > {% endif %}
-### Export database skeleton2
+### step 20 :Export database skeleton2
 datas/second-export-datas.sql
 ### Lu sur internet ;-)
     composer create symfony/website-skeleton monprojet
@@ -105,3 +105,25 @@ datas/second-export-datas.sql
 
 Start coding !
 and news of Syfony 3 and 4 : https://github.com/pierstoval/livingedge
+### step 21 :generate CRUD
+for Articles with command:
+    php bin/console make:crud Articles
+### step 22 :changing routing to admin
+    @Route("/admin/articles")
+in Controller/ArticlesController.php
+- create a temporary link to the crud in public template
+- change template with our model
+- translate in French
+### step 23 : bug's correction "could not be converted to string"
+- into src/Entity/Users.php
+        public function __toString()
+        {
+            return (string) $this->getThelogin();
+        }
+- into src/Entity/Rubriques.php
+        public function __toString()
+        {
+            return (string) $this->getThertitle();
+        }
+
+
