@@ -69,8 +69,11 @@ use this => findBy([],['thedate'=>"DESC"])
 >        Twig\Extensions\TextExtension: ~
 in config/packages/twig_extensions.yaml
 - use 
->        item.getThedescription|truncate(300, true)
+>        item.getThedescription|truncate(350, true)
 in the template, the words are not cut
 ### create the complete article system
 - create method in PublicController.php
 - create view article.html.twig 
+### changing hard link to article with id
+> {{ path('detail_article', {'id':item.getIdarticles}) }}
+### create detail_rubrique system

@@ -30,10 +30,25 @@ class PublicController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $rubriques = $entityManager->getRepository(Rubriques::class)->findAll();
-        // findBy([],['id'=>ASC]) for ordering the result
         $articles = $entityManager->getRepository(Articles::class)->find($id);
         return $this->render('public/article.html.twig', [
             'rubriques' => $rubriques,
+            'articles' => $articles,
+        ]);
+    }
+    /**
+     * @Route("/idcateg/{id}", name="detail_rubrique")
+     */
+    public function rubrique($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $rubriques = $entityManager->getRepository(Rubriques::class)->findAll();
+        $rubriqueActu = $entityManager->getRepository(Rubriques::class)->find($id);
+        // findBy([],['id'=>ASC]) for ordering the result
+        $articles = $entityManager->getRepository(Articles::class)->findBy(['rubriquesrubriques'=>$id],['idarticles'=>"ASC"]);
+        return $this->render('public/rubrique.html.twig', [
+            'rubriques' => $rubriques,
+            'rubriqueactu' => $rubriqueActu,
             'articles' => $articles,
         ]);
     }

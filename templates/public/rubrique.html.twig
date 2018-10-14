@@ -1,11 +1,11 @@
 {% extends 'my_template.html.twig' %}
 
-{% block title %}Skeleton2 - Accueil {% endblock %}
+{% block title %}Skeleton2 - Rubrique {{rubriqueactu.getThertitle}} {% endblock %}
 {% block menu %}
     {% for item in rubriques %}<li class="nav-item"><a class="nav-link" href="{{ path('detail_rubrique',{'id':item.getIdrubriques}) }}">{{ item.getThertitle }}</a></li>{% endfor %}
             {% endblock %}
-{% block stitre %}{{ parent() }} - Accueil{% endblock %}
-{% block sstitre %}Liste de nos articles{% endblock %}
+{% block stitre %}{{ parent() }} - Rubrique {{rubriqueactu.getThertitle}}{% endblock %}
+{% block sstitre %}Liste de nos articles dans {{rubriqueactu.getThertitle}}{% endblock %}
 {% block contenu %}
     {% for item in articles %}
         <h2>{{ item.getThetitle }}</h2>
