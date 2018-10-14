@@ -11,5 +11,7 @@
         <h3>Sections : {% for menu in articles.getRubriquesrubriques %}
 {{menu.getThertitle}} | {% endfor %}</h3>
     <p>{{ articles.getThedescription|nl2br }}</p>
-<h4>Par {{articles.getUsersusers.getThelogin}} <small>le {{ articles.getThedate|date("d/m/Y à H:i")}}</small></h4><hr>   
+<h4>Par {{articles.getUsersusers.getThelogin}} <small>le {{ articles.getThedate|date("d/m/Y à H:i")}}</small></h4>
+<a href="{{ path("accueil")}}">Retour à l'accueil</a>
+<hr>   
 {% endblock %}
