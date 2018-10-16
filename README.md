@@ -116,14 +116,52 @@ in Controller/ArticlesController.php
 - translate in French
 ### step 23 : bug's correction "could not be converted to string"
 - into src/Entity/Users.php
+        
         public function __toString()
         {
             return (string) $this->getThelogin();
         }
 - into src/Entity/Rubriques.php
+        
         public function __toString()
         {
             return (string) $this->getThertitle();
         }
+### step 24 : create indentification
 
-
+    security:
+        # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+        providers:
+            in_memory:
+                memory:
+                    users:
+                        ryan:
+                            password: ryanpass
+                            roles: 'ROLE_USER'
+                        admin:
+                            password: admin
+                            roles: 'ROLE_ADMIN'
+    
+        firewalls:
+            dev:
+                pattern: ^/(_(profiler|wdt)|css|images|js)/
+                security: false
+            main:
+                anonymous: ~
+                http_basic: ~
+    
+                # activate different ways to authenticate
+    
+                # http_basic: true
+                # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+    
+                # form_login: true
+                # https://symfony.com/doc/current/security/form_login_setup.html
+    
+        # Easy way to control access for large sections of your site
+        # Note: Only the *first* access control that matches will be used
+        access_control:
+             - { path: ^/admin, roles: ROLE_ADMIN }
+            # - { path: ^/profile, roles: ROLE_USER }
+        encoders:
+            Symfony\Component\Security\Core\User\User: plaintext
