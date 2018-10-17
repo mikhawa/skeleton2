@@ -231,7 +231,7 @@ and security template:
             secret: '%env(APP_SECRET)%'
             #default_locale: en
             csrf_protection: ~
-- config/packages/securuty.yaml
+- config/packages/security.yaml
 
         firewalls:
                 dev:
@@ -248,3 +248,25 @@ and security template:
         <input type="hidden" name="_csrf_token"
                        value="{{ csrf_token('authenticate') }}"
                 >
+### step 26 Customize Error Pages
+- create  templates/bundles/TwigBundle/Exception/error.html.twig
+
+        {% extends 'my_template.html.twig' %}
+        
+        {% block contenu %}
+            <h1>Page non trouvée</h1>
+            <h2>Oups ...</h2>
+            <p>
+                Votre requête est refusée ou votre page non trouvée <a href="{{ path('accueil') }}">Retour à l'accueil</a>.
+            </p>
+        {% endblock %}
+- change in .env to see the difference:
+
+        #APP_ENV=dev
+        APP_ENV=prod
+don't forget to use
+
+        php bin/console cache:clear
+to see difference 
+
+
