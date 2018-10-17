@@ -165,3 +165,52 @@ in Controller/ArticlesController.php
             # - { path: ^/profile, roles: ROLE_USER }
         encoders:
             Symfony\Component\Security\Core\User\User: plaintext
+            
+with securityController:
+
+        namespace App\Controller;
+        
+        use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+        use Symfony\Component\Routing\Annotation\Route;
+        use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+        
+        class SecurityController extends AbstractController
+        {
+            /**
+             * @Route("/login", name="login")
+             */
+            public function login(AuthenticationUtils $authenticationUtils)
+            {
+                // get the login error if there is one
+                $error = $authenticationUtils->getLastAuthenticationError();
+        
+                // last username entered by the user
+                $lastUsername = $authenticationUtils->getLastUsername();
+        
+                return $this->render('security/index.html.twig', array(
+                    'last_username' => $lastUsername,
+                    'error'         => $error,
+                ));
+            }
+        }
+and security template:
+
+        {% extends 'my_template.html.twig' %}
+        
+        {% block title %}Hello !{% endblock %}
+        
+        {% block contenu %}
+            {% if error %}
+                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+        
+            <form action="{{ path('login') }}" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="_password" />
+        
+                <button type="submit">login</button>
+            </form>
+        {% endblock %}
