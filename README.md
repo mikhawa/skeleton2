@@ -268,5 +268,22 @@ don't forget to use
 
         php bin/console cache:clear
 to see difference 
+### step 27 Choose de root after login
+- in public's templates :
+        
+        <a class="nav-link" href="{{ path('login')}}">Connexion</a>
+- security.yaml
+
+        firewalls:
+                dev:
+                    pattern: ^/(_(profiler|wdt)|css|images|js)/
+                    security: false
+                main:
+                    anonymous: ~
+                    form_login:
+                        login_path: login
+                        check_path: login
+                        csrf_token_generator: security.csrf.token_manager
+                        default_target_path: articles_index
 
 
