@@ -26,67 +26,76 @@ with Bootstrap 4 CDN into my_template.html.twig
 from https://startbootstrap.com/
 ### step 11 : recup menu
 - index in controller:
->    use App\Entity\Rubriques;
+    
+        use App\Entity\Rubriques;
 
->        $entityManager = $this->getDoctrine()->getManager();
->        $rubriques = $entityManager->getRepository(Rubriques::class)->findAll();
->        return $this->render('public/index.html.twig', [
->            'rubriques' => $rubriques,
->        ]);
+        $entityManager = $this->getDoctrine()->getManager();
+        $rubriques = $entityManager->getRepository(Rubriques::class)->findAll();
+        return $this->render('public/index.html.twig', [
+            'rubriques' => $rubriques,
+        ]);
 - menu in template
->    {% block menu %}
->    {% for item in rubriques %}<li class="nav-item"><a class="nav-link" href="idcateg/{{ item.getIdrubriques }}">{{ item.getThertitle >}}  </a></li>
->    {% endfor %}{% endblock %}
+    
+        {% block menu %}
+        {% for item in rubriques %}<li class="nav-item"><a class="nav-link" href="idcateg/{{ item.getIdrubriques }}">{{ item.getThertitle >}}  </a></li>
+        {% endfor %}{% endblock %}
 ### step 12 : recup article
 - index in controller:
->    use App\Entity\Rubriques;
->    use App\Entity\Articles;
->    
->    public function index()
->   {
->        $entityManager = $this->getDoctrine()->getManager();
->        $rubriques = $entityManager->getRepository(Rubriques::class)->findAll();
->        $articles = $entityManager->getRepository(Articles::class)->findAll();
->        return $this->render('public/index.html.twig', [
->            'rubriques' => $rubriques,
->            'articles' => $articles,
->        ]);
->    }
+    
+       use App\Entity\Rubriques;
+       use App\Entity\Articles;
+    
+         public function index()
+        {
+        $entityManager = $this->getDoctrine()->getManager();
+        $rubriques = $entityManager->getRepository(Rubriques::class)->findAll();
+        $articles = $entityManager->getRepository(Articles::class)->findAll();
+        return $this->render('public/index.html.twig', [
+            'rubriques' => $rubriques,
+            'articles' => $articles,
+        ]);
+        }
 - articles in template twig
->    {% for item in articles %}
->        <h2>{{ item.getThetitle }}</h2>
->        <h3>Sections : {% for menu in item.getRubriquesrubriques %}
->    {{menu.getThertitle}} | {% endfor %}</h3>
->    <p>{{ item.getThedescription|slice(0, 300) }} ... </p>
->        <h4>Par {{item.getUsersusers.getThelogin}} <small>le {{ item.getThedate|date("d/m/Y à H:i")}}</small></h4><hr>
->    {% endfor %} 
+    
+        {% for item in articles %}
+        <h2>{{ item.getThetitle }}</h2>
+        <h3>Sections : {% for menu in item.getRubriquesrubriques %}
+        {{menu.getThertitle}} | {% endfor %}</h3>
+        <p>{{ item.getThedescription|slice(0, 300) }} ... </p>
+        <h4>Par {{item.getUsersusers.getThelogin}} <small>le 
+        {{ item.getThedate|date("d/m/Y à H:i")}}</small></h4><hr>
+        {% endfor %} 
 ### step 13 : findAll with ORDER BY
 use this => findBy([],['thedate'=>"DESC"])
 ### step 14 : Install twig extensions
     composer require twig/extensions
 ### step 15 :activate twig extensions
 - decomment 
->        Twig\Extensions\TextExtension: ~
+    
+       Twig\Extensions\TextExtension: ~
 in config/packages/twig_extensions.yaml
 - use 
->        item.getThedescription|truncate(350, true)
+    
+       item.getThedescription|truncate(350, true)
 in the template, the words are not cut
 ### step 16 :create the complete article system
 - create method in PublicController.php
 - create view article.html.twig 
 ### step 17 :change hard link to article with id
-> {{ path('detail_article', {'id':item.getIdarticles}) }}
+     {{ path('detail_article', {'id':item.getIdarticles}) }}
 ### step 18 :create detail_rubrique system
 - rubrique() method in controller
 - rubrique.html.twig template
 ! I used for many to many : 
 Debug:
-> $rubriqueActu = $entityManager->getRepository(Rubriques::class)->find($id);
-> $articles = $rubriqueActu->getArticlesarticles();
+        
+        $rubriqueActu = $entityManager->getRepository(Rubriques::class)->find($id);
+        $articles = $rubriqueActu->getArticlesarticles();
 ### step 19 :create message if not article
-> {% if articles is empty %}
->        Pas encore d'articles dans cette section
-> {% endif %}
+ 
+    {% if articles is empty %}
+        Pas encore d'articles dans cette section
+    {% endif %}
 ### step 20 :Export database skeleton2
 datas/second-export-datas.sql
 ### Lu sur internet ;-)
@@ -165,3 +174,116 @@ in Controller/ArticlesController.php
             # - { path: ^/profile, roles: ROLE_USER }
         encoders:
             Symfony\Component\Security\Core\User\User: plaintext
+            
+with securityController:
+
+        namespace App\Controller;
+        
+        use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+        use Symfony\Component\Routing\Annotation\Route;
+        use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+        
+        class SecurityController extends AbstractController
+        {
+            /**
+             * @Route("/login", name="login")
+             */
+            public function login(AuthenticationUtils $authenticationUtils)
+            {
+                // get the login error if there is one
+                $error = $authenticationUtils->getLastAuthenticationError();
+        
+                // last username entered by the user
+                $lastUsername = $authenticationUtils->getLastUsername();
+        
+                return $this->render('security/index.html.twig', array(
+                    'last_username' => $lastUsername,
+                    'error'         => $error,
+                ));
+            }
+        }
+and security template:
+
+        {% extends 'my_template.html.twig' %}
+        
+        {% block title %}Hello !{% endblock %}
+        
+        {% block contenu %}
+            {% if error %}
+                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+        
+            <form action="{{ path('login') }}" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="_password" />
+        
+                <button type="submit">login</button>
+            </form>
+        {% endblock %}
+### step 25 Implement CSRF Protection
+    composer require symfony/security-csrf
+- config/packages/framework.yaml
+        
+        framework:
+            secret: '%env(APP_SECRET)%'
+            #default_locale: en
+            csrf_protection: ~
+- config/packages/security.yaml
+
+        firewalls:
+                dev:
+                    pattern: ^/(_(profiler|wdt)|css|images|js)/
+                    security: false
+                main:
+                    anonymous: ~
+                    form_login:
+                        login_path: login
+                        check_path: login
+                        csrf_token_generator: security.csrf.token_manager
+- in your form template:
+
+        <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+### step 26 Customize Error Pages
+- create  templates/bundles/TwigBundle/Exception/error.html.twig
+
+        {% extends 'my_template.html.twig' %}
+        
+        {% block contenu %}
+            <h1>Page non trouvée</h1>
+            <h2>Oups ...</h2>
+            <p>
+                Votre requête est refusée ou votre page non trouvée <a href="{{ path('accueil') }}">Retour à l'accueil</a>.
+            </p>
+        {% endblock %}
+- change in .env to see the difference:
+
+        #APP_ENV=dev
+        APP_ENV=prod
+don't forget to use
+
+        php bin/console cache:clear
+to see difference 
+### step 27 Choose de root after login
+- in public's templates :
+        
+        <a class="nav-link" href="{{ path('login')}}">Connexion</a>
+- security.yaml
+
+        firewalls:
+                dev:
+                    pattern: ^/(_(profiler|wdt)|css|images|js)/
+                    security: false
+                main:
+                    anonymous: ~
+                    form_login:
+                        login_path: login
+                        check_path: login
+                        csrf_token_generator: security.csrf.token_manager
+                        default_target_path: articles_index
+
+
