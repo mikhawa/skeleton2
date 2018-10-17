@@ -26,67 +26,76 @@ with Bootstrap 4 CDN into my_template.html.twig
 from https://startbootstrap.com/
 ### step 11 : recup menu
 - index in controller:
->    use App\Entity\Rubriques;
+    
+        use App\Entity\Rubriques;
 
->        $entityManager = $this->getDoctrine()->getManager();
->        $rubriques = $entityManager->getRepository(Rubriques::class)->findAll();
->        return $this->render('public/index.html.twig', [
->            'rubriques' => $rubriques,
->        ]);
+        $entityManager = $this->getDoctrine()->getManager();
+        $rubriques = $entityManager->getRepository(Rubriques::class)->findAll();
+        return $this->render('public/index.html.twig', [
+            'rubriques' => $rubriques,
+        ]);
 - menu in template
->    {% block menu %}
->    {% for item in rubriques %}<li class="nav-item"><a class="nav-link" href="idcateg/{{ item.getIdrubriques }}">{{ item.getThertitle >}}  </a></li>
->    {% endfor %}{% endblock %}
+    
+        {% block menu %}
+        {% for item in rubriques %}<li class="nav-item"><a class="nav-link" href="idcateg/{{ item.getIdrubriques }}">{{ item.getThertitle >}}  </a></li>
+        {% endfor %}{% endblock %}
 ### step 12 : recup article
 - index in controller:
->    use App\Entity\Rubriques;
->    use App\Entity\Articles;
->    
->    public function index()
->   {
->        $entityManager = $this->getDoctrine()->getManager();
->        $rubriques = $entityManager->getRepository(Rubriques::class)->findAll();
->        $articles = $entityManager->getRepository(Articles::class)->findAll();
->        return $this->render('public/index.html.twig', [
->            'rubriques' => $rubriques,
->            'articles' => $articles,
->        ]);
->    }
+    
+       use App\Entity\Rubriques;
+       use App\Entity\Articles;
+    
+         public function index()
+        {
+        $entityManager = $this->getDoctrine()->getManager();
+        $rubriques = $entityManager->getRepository(Rubriques::class)->findAll();
+        $articles = $entityManager->getRepository(Articles::class)->findAll();
+        return $this->render('public/index.html.twig', [
+            'rubriques' => $rubriques,
+            'articles' => $articles,
+        ]);
+        }
 - articles in template twig
->    {% for item in articles %}
->        <h2>{{ item.getThetitle }}</h2>
->        <h3>Sections : {% for menu in item.getRubriquesrubriques %}
->    {{menu.getThertitle}} | {% endfor %}</h3>
->    <p>{{ item.getThedescription|slice(0, 300) }} ... </p>
->        <h4>Par {{item.getUsersusers.getThelogin}} <small>le {{ item.getThedate|date("d/m/Y à H:i")}}</small></h4><hr>
->    {% endfor %} 
+    
+        {% for item in articles %}
+        <h2>{{ item.getThetitle }}</h2>
+        <h3>Sections : {% for menu in item.getRubriquesrubriques %}
+        {{menu.getThertitle}} | {% endfor %}</h3>
+        <p>{{ item.getThedescription|slice(0, 300) }} ... </p>
+        <h4>Par {{item.getUsersusers.getThelogin}} <small>le 
+        {{ item.getThedate|date("d/m/Y à H:i")}}</small></h4><hr>
+        {% endfor %} 
 ### step 13 : findAll with ORDER BY
 use this => findBy([],['thedate'=>"DESC"])
 ### step 14 : Install twig extensions
     composer require twig/extensions
 ### step 15 :activate twig extensions
 - decomment 
->        Twig\Extensions\TextExtension: ~
+    
+       Twig\Extensions\TextExtension: ~
 in config/packages/twig_extensions.yaml
 - use 
->        item.getThedescription|truncate(350, true)
+    
+       item.getThedescription|truncate(350, true)
 in the template, the words are not cut
 ### step 16 :create the complete article system
 - create method in PublicController.php
 - create view article.html.twig 
 ### step 17 :change hard link to article with id
-> {{ path('detail_article', {'id':item.getIdarticles}) }}
+     {{ path('detail_article', {'id':item.getIdarticles}) }}
 ### step 18 :create detail_rubrique system
 - rubrique() method in controller
 - rubrique.html.twig template
 ! I used for many to many : 
 Debug:
-> $rubriqueActu = $entityManager->getRepository(Rubriques::class)->find($id);
-> $articles = $rubriqueActu->getArticlesarticles();
+        
+        $rubriqueActu = $entityManager->getRepository(Rubriques::class)->find($id);
+        $articles = $rubriqueActu->getArticlesarticles();
 ### step 19 :create message if not article
-> {% if articles is empty %}
->        Pas encore d'articles dans cette section
-> {% endif %}
+ 
+    {% if articles is empty %}
+        Pas encore d'articles dans cette section
+    {% endif %}
 ### step 20 :Export database skeleton2
 datas/second-export-datas.sql
 ### Lu sur internet ;-)
@@ -214,3 +223,28 @@ and security template:
                 <button type="submit">login</button>
             </form>
         {% endblock %}
+### step 25 Implement CSRF Protection
+    composer require symfony/security-csrf
+- config/packages/framework.yaml
+        
+        framework:
+            secret: '%env(APP_SECRET)%'
+            #default_locale: en
+            csrf_protection: ~
+- config/packages/securuty.yaml
+
+        firewalls:
+                dev:
+                    pattern: ^/(_(profiler|wdt)|css|images|js)/
+                    security: false
+                main:
+                    anonymous: ~
+                    form_login:
+                        login_path: login
+                        check_path: login
+                        csrf_token_generator: security.csrf.token_manager
+- in your form template:
+
+        <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
