@@ -2,8 +2,16 @@
 
 {% block title %}Skeleton2 - {{ articles.getThetitle }}{% endblock %}
 {% block menu %}
-    {% for item in rubriques %}<li class="nav-item"><a class="nav-link" href="{{ path('detail_rubrique',{'id':item.getIdrubriques}) }}">{{ item.getThertitle }}</a></li>{% endfor %}<li class="nav-item"><a class="nav-link" href="{{ path('login')}}">Connexion</a></li>
-            {% endblock %}
+    {% for item in rubriques %}<li class="nav-item"><a class="nav-link" href="{{ path('detail_rubrique',{'id':item.getIdrubriques}) }}">{{ item.getThertitle }}</a></li>{% endfor %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <li class="nav-item"> <a class="nav-link" href="{{ path('the_logout')}}">Déconnexion</a></li>
+    {% if is_granted('ROLE_ADMIN') %}
+    <li class="nav-item"> <a class="nav-link" href="{{ path('articles_index')}}">Admin</a></li>
+    {% endif %}
+{% else %}
+    <li class="nav-item"> <a class="nav-link" href="{{ path('login')}}">Connexion</a></li>
+{% endif %}
+    {% endblock %}
 {% block stitre %}{{ parent() }} - {{ articles.getThetitle }}{% endblock %}
 {% block sstitre %}Détail de l'article: {{ articles.getThetitle }}{% endblock %}
 {% block contenu %}

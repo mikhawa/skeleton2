@@ -144,9 +144,6 @@ in Controller/ArticlesController.php
             in_memory:
                 memory:
                     users:
-                        ryan:
-                            password: ryanpass
-                            roles: 'ROLE_USER'
                         admin:
                             password: admin
                             roles: 'ROLE_ADMIN'
@@ -286,4 +283,58 @@ to see difference
                         csrf_token_generator: security.csrf.token_manager
                         default_target_path: articles_index
 
+### step 28 prepare Twig's links to disconnect an user
+- create into
+    config/packages/security.yaml
 
+
+            firewalls:
+                dev:
+                    pattern: ^/(_(profiler|wdt)|css|images|js)/
+                    security: false
+                main:
+                    anonymous: ~
+                    form_login:
+                        login_path: login
+                        check_path: login
+                        csrf_token_generator: security.csrf.token_manager
+                        default_target_path: articles_index
+                    logout:
+                        path:   the_logout
+                        target: accueil
+- create into
+    config/routes.yaml
+
+
+            the_logout:
+                path: /logout
+- into
+
+public/index.html.twig
+
+public/article.html.twig
+
+public/rubrique.html.twig
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li class="nav-item"> <a class="nav-link" href="{{ path('the_logout')}}">Déconnexion</a></li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item"> <a class="nav-link" href="{{ path('articles_index')}}">Admin</a></li>
+        {% endif %}
+        {% else %}
+            <li class="nav-item"> <a class="nav-link" href="{{ path('login')}}">Connexion</a></li>
+        {% endif %}
+- into
+
+articles/index.html.twig
+
+articles/edit.html.twig
+
+articles/new.html.twig
+
+articles/show.html.twig
+
+        {% block menu %}
+        <li class="nav-item">
+        <a class="nav-link" href="{{ path('the_logout')}}">Déconnexion</a></li>
+        {% endblock %}

@@ -1,7 +1,10 @@
 {% extends 'my_template.html.twig' %}
 
 {% block title %}Voir l'Article{% endblock %}
-
+{% block menu %}
+    <li class="nav-item">
+    <a class="nav-link" href="{{ path('the_logout')}}">Déconnexion</a></li>
+            {% endblock %}
 {% block contenu %}
     <h1>Voir l'Article</h1>
 

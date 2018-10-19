@@ -4,9 +4,6 @@ security:
         in_memory:
             memory:
                 users:
-                    ryan:
-                        password: ryanpass
-                        roles: 'ROLE_USER'
                     admin:
                         password: admin
                         roles: 'ROLE_ADMIN'
@@ -22,6 +19,9 @@ security:
                 check_path: login
                 csrf_token_generator: security.csrf.token_manager
                 default_target_path: articles_index
+            logout:
+                path:   the_logout
+                target: accueil
 
             # activate different ways to authenticate
 
